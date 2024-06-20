@@ -336,7 +336,148 @@ Below you can see in the screenshot it's not sending data to windows server 2019
 Configuring Windows Defender Firewall:
 <img src="https://i.imgur.com/qAyVSHr.png">
 On Windows 10, open Windows Defender Firewall with Advanced Security.
+<Img src="https://i.imgur.com/XQIZJWq.png">
 Navigate to "Inbound Rules" and create a new rule.
 Choose "Custom rule type" and under scope, select the IP address of the Windows 10 machine.
+<img src="https://i.imgur.com/Icgu5hY.png">
 Name the rule and click "Finish" to allow data connection to the Windows Server 2019 machine.
+<img src="https://i.imgur.com/xWRTlmv.png">
 Repeat the same process for outbound rules, ensuring that the Windows 10 machine can send data.
+<img src="https://i.imgur.com/jUfB4QX.png"> <Img src="https://i.imgur.com/Jo8ws3X.png">
+Refreshing IP Address:
+<Img src="https://i.imgur.com/6bSKsxU.png">
+If the Windows Server 2019 machine didn't allow data through the assigned IP address, use the command "IPCONFIG /RENEW" to obtain a new IP address.
+Ensure that the IPv4 print is enabled in the inbound settings of the firewall.
+Configuring DNS Server:
+<img src="https://i.imgur.com/Jmx7ZVY.png"> 
+On the Windows 10 machine, right-click on the internet connection and select properties.
+<img src="https://i.imgur.com/j4tA69y.png">
+Choose "Internet Protocol Version 4 (TCP/IPv4)" and configure the DNS
+server to the IP address of the Windows Server 2019 computer.
+<img src="https://i.imgur.com/pkeXSyw.png">
+Optionally, set an alternative DNS server like 1.1.1.1 or 8.8.8.8.
+<img src="https://i.imgur.com/Mr1FahW.png">
+Joining the Domain:
+<img src="https://i.imgur.com/jUScLOI.png">
+After completing basic configurations, search for "About your PC" and navigate to "Advanced system settings".
+<img src="https://i.imgur.com/qzwHkXa.png">
+Under "Computer Name", click on "Change" and input the domain name created during the first forest domain setup.
+<img src="https://i.imgur.com/eS4Lad5.png">
+Enter the desktop computer name and the username and password created while setting up the user on the Windows Server 2019.
+<img src="https://i.imgur.com/qNtqLoH.png">
+Restart the computer, and upon login, select the domain name under "Sign in to".
+<img src="https://i.imgur.com/q53w7rZ.png"> <img src="https://i.imgur.com/WBaxG9Q.png">
+Viewing Computers in Active Directory:
+<img src="https://i.imgur.com/AaEw868.png">
+Open the "Computers" folder in Windows Server 2019 to see the computer automatically added to the domain.
+Accessing Local Security Policy:
+<img src="https://i.imgur.com/NNCUQjb.png">
+Navigate to "Local Security Policy" through the "Tools" menu in Server Manager.
+Explore Group Policy Management, understanding its importance in Active Directory for centralized management of system and user configurations.
+<img src="https://i.imgur.com/FpwUtQb.png">
+Creating a Group Policy Object (GPO):
+<Img src="https://i.imgur.com/FpwUtQb.png">
+Right-click on the domain and select "Create a GPO in this domain and link it here."
+<img src="https://i.imgur.com/73rYoN3.png">
+Name the GPO (e.g., Department GP), and then edit it.
+<img src="https://i.imgur.com/MmXz8mG.png">
+Group Policy Management Editor:
+<Img src="https://i.imgur.com/YgN9mlw.png">
+Understand the two main sections: "Computer Configuration" and "User Configuration."
+<Img src="https://i.imgur.com/c2csRpK.png">
+Computer Configuration:
+
+Definition: Computer Configuration settings in Group Policy apply to computer objects within the scope of the policy.
+Purpose: It allows administrators to manage settings related to the computer's operating system, hardware, and security.
+Examples of Policies:
+System settings: Controls system behavior, such as power management, device installation, and Windows Firewall configurations.
+Administrative Templates: Provides a wide range of settings for controlling various aspects of the computer's behavior, including security settings, desktop configurations, and system services.
+Security Settings: Enforces security policies related to account policies, local policies, and security options.
+Usage: Computer Configuration settings are applied when the computer starts up or when Group Policy is refreshed.
+User Configuration:
+
+Definition: User Configuration settings apply to user objects within the scope of the policy.
+Purpose: It allows administrators to manage settings specific to individual user accounts, such as desktop appearance, application settings, and access permissions.
+Examples of Policies:
+Folder Redirection: Redirects folders like Documents, Desktop, and Favorites to network locations for easier management and backup.
+Software Installation: Allows administrators to deploy and manage software installations for specific user accounts.
+Group Policy Preferences: Provides additional configuration options, such as mapping network drives, configuring printers, and setting environment variables.
+Usage: User Configuration settings are applied when a user logs on to a computer or when Group Policy is refreshed.
+<img src="https://i.imgur.com/yrou8Ab.png">
+Navigate to "Policies" under "Software Settings" and explore administrative templates and system settings.
+<img src="https://i.imgur.com/irx3ift.png">
+Configuring Group Policies:
+<img src="https://i.imgur.com/irx3ift.png">
+Under "Administrative Templates," configure policies such as enabling logoff at the Start menu and hiding desktop icons.
+<img src="https://i.imgur.com/lcY4DFy.png"> <img src="https://i.imgur.com/q4mSiRq.png">
+After setting up policies, run the command "gpupdate /force" in CMD on the Windows Server 2019 to apply changes.
+<img src="https://i.imgur.com/PRA5Igp.png">
+Viewing Changes on Windows 10:
+<img src="https://i.imgur.com/zYWEPuG.png">
+Log in to the Windows 10 virtual machine and observe the applied policies, such as the removal of desktop details.
+<Img src="https://i.imgur.com/5yNmqli.png">
+Exploring Account Policies:
+<img src="https://i.imgur.com/h7mSDNG.png">
+Edit the default domain policy and navigate to "Computer Configuration" > "Windows Settings" > "Security Settings."
+<Img src="https://i.imgur.com/9ZbWLPn.png">
+Explore account policies like password policy, account lockout policy, and Kerberos policy, understanding each setting's significance.
+<img src="https://i.imgur.com/ATdl1bR.png">
+Password Policy:
+
+Enforce Password History: Determines how many previous passwords Windows remembers to prevent users from reusing them.
+Maximum Password Age: Sets the maximum number of days a password can be used before the user must change it.
+Minimum Password Age: Specifies the minimum number of days a password must be used before the user can change it.
+Minimum Password Length: Defines the minimum number of characters required for a password.
+Password Complexity Requirements: Ensures passwords meet specific complexity criteria, such as containing a mix of uppercase letters, lowercase letters, numbers, and special characters.
+Store Passwords Using Reversible Encryption: Determines whether passwords are stored in reversible encrypted format, which is generally not recommended for security reasons.
+Account Lockout Policy:
+
+Account Lockout Threshold: Specifies the number of failed login attempts allowed before an account is locked out.
+Reset Account Lockout Counter After: Sets the duration after which failed login attempts are reset.
+Account Lockout Duration: Determines how long an account remains locked out before automatically unlocking or requiring administrator intervention.
+Kerberos Policy:
+
+Enforce User Logon Restrictions: Ensures users must log on only from authorized computers.
+Maximum Lifetime For Service Ticket: Specifies the maximum time a service ticket is valid before it expires.
+Maximum Lifetime For User Ticket: Sets the maximum time a user's ticket-granting ticket (TGT) is valid.
+Maximum Lifetime For User Ticket Renewal: Determines the maximum time a user can renew a ticket.
+Maximum Tolerance For Computer Clock Synchronization: Defines the maximum time difference allowed between a client and server's clocks for Kerberos authentication.
+<img src="https://i.imgur.com/H3xIRHQ.png">
+Blocking inheritance:
+<img src="https://i.imgur.com/0nxfFMV.png">
+in Active Directory allows administrators to prevent child objects (such as Organizational Units or OUs) from inheriting Group Policy Objects (GPOs) from parent containers.
+
+Advantages:
+
+Granular Control: It enables administrators to apply specific policies to individual OUs without affecting the entire domain.
+Customization: Allows for tailored configurations based on the unique requirements of different organizational units.
+Minimizing Policy Conflicts: Helps in avoiding conflicts that may arise when conflicting policies are inherited from parent containers.
+Disadvantages:
+
+Increased Complexity: Managing multiple inheritance-blocked OUs can become complex and may require careful planning and documentation.
+Potential for Overlapping Policies: Without careful planning, blocking inheritance may lead to overlapping policies, causing unintended consequences or conflicts.
+Administration Overhead: Requires ongoing monitoring and maintenance to ensure consistency and avoid unintended policy interactions.
+<img src="https://i.imgur.com/fBF1wmZ.png">
+Enforced Settings:
+
+Enforced settings, also known as "No Override," ensure that GPOs applied to parent containers are enforced on child objects, even if those child objects have Block Inheritance applied.
+
+Explanation:
+
+Forced Application: Enforced settings override any Block Inheritance settings on child objects, ensuring that policies from higher-level containers are applied.
+Hierarchy Preservation: Allows administrators to maintain a consistent hierarchy of policies across the domain, ensuring critical policies are applied uniformly.
+Prevention of Policy Evasion: Enforcing settings prevents administrators at lower levels from overriding important policies set at higher levels, maintaining security and compliance standards.
+<img src="https://i.imgur.com/BoTkEke.png">
+Exploring Default Domain Policy Settings:
+
+RGeneral: This section typically includes settings related to password policies, account lockout policies, and Kerberos authentication settings. These settings are crucial for securing the domain and ensuring that user accounts are protected from unauthorized access.
+
+Details: This section might include additional settings related to user rights assignments, such as who can log on locally, access the computer from the network, or shut down the system. It could also include settings related to auditing and user profile configurations.
+
+Links: The Links section specifies which organizational units (OUs) the policy is linked to. This determines which users and computers are affected by the policy. By default, the Default Domain Policy is linked to the root of the domain, so its settings apply to all objects within the domain unless overridden by a more specific policy linked to a child OU.
+
+Security Filtering: Security filtering allows you to specify which users or groups the policy applies to. By default, the Default Domain Policy applies to all authenticated users in the domain, but you can use security filtering to target specific groups or users if needed.
+
+Delegation: Delegation settings determine which users or groups have permission to edit the policy. By default, only members of the Domain Admins group have permission to edit the Default Domain Policy, but you can delegate this permission to other users or groups if necessary.
+
+Policies: This section contains the actual policy settings that define the behavior of computers and users in the domain. This can include settings related to Windows Firewall, Internet Explorer, and other system configurations.
